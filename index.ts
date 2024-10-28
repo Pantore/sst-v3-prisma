@@ -2,7 +2,7 @@ import {prisma} from "./prisma";
 
 export async function handler() {
     const users = await prisma.user.findMany({
-        take: 5
+        take: 6
     })
     console.log('users', users)
     return {
