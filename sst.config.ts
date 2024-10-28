@@ -81,6 +81,7 @@ export default $config({
     },
     console: {
       autodeploy: {
+          
         target(event) {
           // if (event.type === "branch" && event.branch === "staging") return;
           if (event.type === "branch" && event.branch === "main" && event.action === "pushed") {
