@@ -71,15 +71,69 @@
  */
 export default $config({
     app(input) {
+        // console.log('input =====>>>> ', input)
         return {
-            name: "aws-prisma-lambda",
+            name: "sst-v3-prisma",
             removal: input?.stage === "production" ? "retain" : "remove",
             home: "aws",
+            // architecture: "arm64"
         };
     },
+    console: {
+      autodeploy: {
+        target(event) {
+          // if (event.type === "branch" && event.branch === "staging") return;
+          if (event.type === "branch" && event.branch === "main" && event.action === "pushed") {
+            return {
+              stage: "production",
+              // stage: event.branch
+              //     .replace(/[^a-zA-Z0-9-]/g, "-")
+              //     .replace(/-+/g, "-")
+              //     .replace(/^-/g, "")
+              //     .replace(/-$/g, ""),
+              runner: {
+                  engine: "codebuild",
+                  compute: "small", //large
+                  // architecture: "x86_64", //arm64
+                  // timeout: "1 hour"
+              }
+            };
+          }
+
+          if (event.type === "pull_request") {
+            return { stage: `pr-${event.number}` };
+          }
+        }
+      }
+    },
     async run() {
-        // const vpc = new sst.aws.Vpc("MyVpc", { nat: "managed" });
-        // const rds = new sst.aws.Postgres("MyPostgres", { vpc });
+
+        // console.log('process.env =====>>>>', process.env)
+        const stage = process.env.SST_STAGE as string
+
+        $transform(sst.aws.Function, (args, opts) => {
+            // console.log('=====>>>>', args, opts)
+          // args.runtime = "nodejs14.x";
+          args.environment = {
+              DATABASE_URL: process.env.DATABASE_URL as string,
+              // ACCOUNT: aws.getCallerIdentityOutput({}).accountId,
+              // REGION: aws.getRegionOutput().name
+          };
+        });
+
+        new sst.x.DevCommand('Prisma Studio', {
+            environment: {DATABASE_URL: process.env.DATABASE_URL as string},
+            dev: {
+                autostart: false,
+                command: 'npx prisma studio'
+            }
+        })
+
+        // const vpc = new sst.aws.Vpc("MyVpc", { nat: "managed",
+        //     //nat: 'ec2',
+        //     // az: 1 //no lb
+        // });
+        // // const rds = new sst.aws.Postgres("MyPostgres", { vpc });
 
         const api = new sst.aws.Function("MyApi", {
             // vpc,
@@ -88,7 +142,10 @@ export default $config({
             // For ARM
             // architecture: "arm64",
             handler: "index.handler",
-            copyFiles: [{ from: "node_modules/.prisma/client/" }],
+            // environment: {
+            //     DATABASE_URL: process.env.DATABASE_URL as string,
+            // }
+            // copyFiles: [{ from: "node_modules/.prisma/client/" }],
         });
 
         return {

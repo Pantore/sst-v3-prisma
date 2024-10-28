@@ -1,5 +1,5 @@
 {
-  "name": "aws-prisma-lambda",
+  "name": "sst-v3-prisma",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
