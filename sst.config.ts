@@ -79,7 +79,7 @@ export default $config({
             // providers: {
             //     aws: { region: "sa-east-1" }
             // },
-            // architecture: "arm64"
+            architecture: "arm64"
         };
     },
     console: {
@@ -97,7 +97,7 @@ export default $config({
               runner: {
                   engine: "codebuild",
                   compute: "small", //large
-                  // architecture: "x86_64", //arm64
+                  architecture: "arm64", //arm64
                   // timeout: "1 hour"
               }
             };
@@ -117,6 +117,7 @@ export default $config({
         $transform(sst.aws.Function, (args, opts) => {
             // console.log('=====>>>>', args, opts)
           // args.runtime = "nodejs14.x";
+            args.architecture = "arm64";
           args.environment = {
               DATABASE_URL: process.env.DATABASE_URL as string,
               // ACCOUNT: aws.getCallerIdentityOutput({}).accountId,
@@ -136,12 +137,10 @@ export default $config({
         //     //nat: 'ec2',
         //     // az: 1 //no lb
         // });
-        // // const rds = new sst.aws.Postgres("MyPostgres", { vpc });
 
         const api = new sst.aws.Function("MyApi", {
             // vpc,
             url: true,
-            // link: [rds],
             // For ARM
             // architecture: "arm64",
             handler: "index.handler",
