@@ -76,6 +76,9 @@ export default $config({
             name: "sst-v3-prisma",
             removal: input?.stage === "production" ? "retain" : "remove",
             home: "aws",
+            // providers: {
+            //     aws: { region: "sa-east-1" }
+            // },
             // architecture: "arm64"
         };
     },
@@ -145,7 +148,7 @@ export default $config({
             // environment: {
             //     DATABASE_URL: process.env.DATABASE_URL as string,
             // }
-            // copyFiles: [{ from: "node_modules/.prisma/client/" }],
+            copyFiles: process.env.IS_LOCAL !== 'true' ? [{ from: "node_modules/.prisma/client/" }] : [],
         });
 
         return {
