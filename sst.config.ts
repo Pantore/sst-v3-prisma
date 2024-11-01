@@ -137,10 +137,10 @@ export default $config({
                 OTEL_PROPAGATORS: 'tracecontext'
             }
 
-            args.layers = [
-                'arn:aws:lambda:sa-east-1:184161586896:layer:opentelemetry-collector-amd64-0_11_0:1',
-                'arn:aws:lambda:sa-east-1:184161586896:layer:opentelemetry-nodejs-0_9_0:4'
-            ]
+            // args.layers = [
+            //     'arn:aws:lambda:sa-east-1:184161586896:layer:opentelemetry-collector-amd64-0_11_0:1',
+            //     'arn:aws:lambda:sa-east-1:184161586896:layer:opentelemetry-nodejs-0_9_0:4'
+            // ]
         })
 
         new sst.x.DevCommand('Prisma Studio', {
