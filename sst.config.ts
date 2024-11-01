@@ -114,6 +114,9 @@ export default $config({
         // console.log('process.env =====>>>>', process.env)
         const stage = process.env.SST_STAGE as string
 
+        console.log('$dev Returns true if the app is running in sst dev.', $dev)
+        console.log('$app $app.stage', $app)
+
         $transform(sst.aws.Function, (args, opts) => {
             // console.log('=====>>>>', args, opts)
           // args.runtime = "nodejs14.x";
