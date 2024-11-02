@@ -170,7 +170,7 @@ export default $config({
                     ? [{from: 'node_modules/.prisma/client/'}, {from: './lambda-config-js'}]
                     : [],
             layers: [
-                'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-collector-amd64-0_11_0:1',
+                'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-collector-arm64-0_11_0:1',
                 'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-nodejs-0_9_0:4'
             ]
         })
