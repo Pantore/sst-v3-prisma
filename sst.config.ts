@@ -166,7 +166,9 @@ export default $config({
             //     DATABASE_URL: process.env.DATABASE_URL as string,
             // }
             copyFiles:
-                process.env.IS_LOCAL !== 'true' ? [{from: 'node_modules/.prisma/client/'}] : [],
+                process.env.IS_LOCAL !== 'true'
+                    ? [{from: 'node_modules/.prisma/client/'}, {from: './lambda-config-js'}]
+                    : [],
             layers: [
                 'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-collector-amd64-0_11_0:1',
                 'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-nodejs-0_9_0:4'
