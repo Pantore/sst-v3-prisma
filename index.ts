@@ -20,7 +20,7 @@ export async function handler(event: any, context: any) {
 
         console.error('testing...')
 
-        throw new Error('testing error')
+        // throw new Error('testing error')
 
         return {
             statusCode: 200,
