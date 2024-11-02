@@ -18,7 +18,7 @@ export async function handler(event: any, context: any) {
 
         span.addEvent('Lambda execution completed')
 
-        console.log('testing...')
+        console.error('testing...')
 
         return {
             statusCode: 200,
