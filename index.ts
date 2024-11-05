@@ -1,4 +1,5 @@
 const {trace} = require('@opentelemetry/api')
+const api = require('@opentelemetry/api-logs')
 
 import {prisma} from './prisma'
 
