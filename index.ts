@@ -20,7 +20,9 @@ export async function handler(event: any, context: any) {
 
         console.error('testing...')
 
-        // throw new Error('testing error')
+        if (Math.random() > 0.5) {
+            throw new Error('testing error')
+        }
 
         return {
             statusCode: 200,

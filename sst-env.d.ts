@@ -6,10 +6,5 @@ import "sst"
 export {}
 declare module "sst" {
   export interface Resource {
-    "MyApi": {
-      "name": string
-      "type": "sst.aws.Function"
-      "url": string
-    }
   }
 }
