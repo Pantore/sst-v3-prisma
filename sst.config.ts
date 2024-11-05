@@ -132,6 +132,7 @@ export default $config({
                 NODE_OPTIONS: '--require ./lambda-config.js',
                 OTEL_SERVICE_NAME: 'sst-v3-prisma',
                 OTEL_EXPORTER_OTLP_ENDPOINT: 'https://rxcto.middleware.io',
+                OTEL_EXPORTER_OTLP_HEADERS: 'mw.account_key=mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw', //added
                 OTEL_RESOURCE_ATTRIBUTES: 'mw.account_key=mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw',
                 OTEL_LAMBDA_DISABLE_AWS_CONTEXT_PROPAGATION: 'true',
                 OTEL_PROPAGATORS: 'tracecontext'
