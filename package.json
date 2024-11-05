@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/api-logs": "^0.54.0",
     "@prisma/client": "^5.19.1",
     "prettier": "^3.3.3",
     "sst": "latest"
