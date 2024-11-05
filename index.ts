@@ -7,6 +7,10 @@ import {OTLPLogExporter} from '@opentelemetry/exporter-logs-otlp-http'
 
 // exporter options. see all options in OTLPExporterNodeConfigBase
 const collectorOptions = {
+    url: 'https://rxcto.middleware.io',
+    headers: {
+        'mw.account_key': 'mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw'
+    },
     // url: '<opentelemetry-collector-url>', // url is optional and can be omitted - default is http://localhost:4318/v1/logs
     concurrencyLimit: 1 // an optional limit on pending requests
 }
