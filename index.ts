@@ -9,6 +9,7 @@ export async function handler(event: any, context: any) {
     const span = tracer.startSpan('lambdaHandler')
 
     try {
+        console.log('api', api)
         span.setAttribute('event', JSON.stringify(event))
 
         const users = await prisma.user.findMany({
