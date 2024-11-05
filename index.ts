@@ -2,7 +2,11 @@ import {SeverityNumber} from '@opentelemetry/api-logs'
 
 const {trace} = require('@opentelemetry/api')
 // const api = require('@opentelemetry/api-logs')
-import {LoggerProvider, BatchLogRecordProcessor} from '@opentelemetry/sdk-logs'
+import {
+    LoggerProvider,
+    BatchLogRecordProcessor,
+    SimpleLogRecordProcessor
+} from '@opentelemetry/sdk-logs'
 import {OTLPLogExporter} from '@opentelemetry/exporter-logs-otlp-http'
 
 // exporter options. see all options in OTLPExporterNodeConfigBase
@@ -19,7 +23,7 @@ const collectorOptions = {
 const logExporter = new OTLPLogExporter(collectorOptions)
 const loggerProvider = new LoggerProvider()
 
-loggerProvider.addLogRecordProcessor(new BatchLogRecordProcessor(logExporter))
+loggerProvider.addLogRecordProcessor(new SimpleLogRecordProcessor(logExporter))
 
 const logger = loggerProvider.getLogger('default', '1.0.0')
 
