@@ -30,6 +30,7 @@ import {OTLPLogExporter} from '@opentelemetry/exporter-logs-otlp-http'
 // const logger = loggerProvider.getLogger('default', '1.0.0')
 
 import {prisma} from './prisma'
+import {SpanStatusCode} from '@opentelemetry/api'
 
 const tracer = trace.getTracer('sst-v3-prisma', '1.0.0')
 
@@ -61,18 +62,22 @@ export async function handler(event: any, context: any) {
                 throw new Error('testing error')
             }
 
-            return {
-                statusCode: 200,
-                body: JSON.stringify({users})
-            }
+            // return {
+            //     statusCode: 200,
+            //     body: JSON.stringify({users})
+            // }
         } catch (error: any) {
             span.recordException(error)
-            return {
-                statusCode: 500,
-                body: JSON.stringify({error: error.message})
-            }
+            // return {
+            //     statusCode: 500,
+            //     body: JSON.stringify({error: error.message})
+            // }
         } finally {
             span.end()
+            return {
+                statusCode: 200,
+                body: JSON.stringify({message: 'done'})
+            }
         }
     })
 }
