@@ -34,7 +34,7 @@ import {prisma} from './prisma'
 const tracer = trace.getTracer('sst-v3-prisma', '1.0.0')
 
 export async function handler(event: any, context: any) {
-    await tracer.startActiveSpan('lambdaHandler', async (span: any) => {
+    return tracer.startActiveSpan('lambdaHandler', async (span: any) => {
         try {
             // console.log('api', api)
             span.setAttribute('event', JSON.stringify(event))
@@ -75,9 +75,4 @@ export async function handler(event: any, context: any) {
             span.end()
         }
     })
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify({message: 'done'})
-    }
 }
