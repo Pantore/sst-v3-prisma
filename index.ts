@@ -72,7 +72,12 @@ export async function handler(event: any, context: any) {
                 body: JSON.stringify({error: error.message})
             }
         } finally {
-            // span.end()
+            span.end()
         }
     })
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({message: 'done'})
+    }
 }
