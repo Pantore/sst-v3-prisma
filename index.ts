@@ -75,10 +75,12 @@ export async function handler(event: any, context: any) {
                 attributes: {'log.type': 'custom'}
             })
             span.recordException(error)
+            // span.setStatus({code: SpanStatusCode.ERROR, message: error.message})
             // return {
             //     statusCode: 500,
             //     body: JSON.stringify({error: error.message})
             // }
+            throw error
         } finally {
             span.end()
             return {
