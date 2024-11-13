@@ -1,4 +1,6 @@
-import {SeverityNumber} from '@opentelemetry/api-logs'
+// import {SeverityNumber} from '@opentelemetry/api-logs'
+import {SeverityNumber, logs} from '@opentelemetry/api-logs'
+const logger = logs.getLogger('app')
 
 const {trace} = require('@opentelemetry/api')
 // const api = require('@opentelemetry/api-logs')
@@ -9,23 +11,23 @@ import {
 } from '@opentelemetry/sdk-logs'
 import {OTLPLogExporter} from '@opentelemetry/exporter-logs-otlp-http'
 
-// exporter options. see all options in OTLPExporterNodeConfigBase
-const collectorOptions = {
-    url: 'https://rxcto.middleware.io/v1/logs',
-    headers: {
-        // endpoint: 'https://rxcto.middleware.io/v1/logs',
-        Authorization: 'mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw'
-        // 'mw.account_key': 'mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw'
-    },
-    // url: '<opentelemetry-collector-url>', // url is optional and can be omitted - default is http://localhost:4318/v1/logs
-    concurrencyLimit: 1 // an optional limit on pending requests
-}
-const logExporter = new OTLPLogExporter(collectorOptions)
-const loggerProvider = new LoggerProvider()
-
-loggerProvider.addLogRecordProcessor(new SimpleLogRecordProcessor(logExporter))
-
-const logger = loggerProvider.getLogger('default', '1.0.0')
+// // exporter options. see all options in OTLPExporterNodeConfigBase
+// const collectorOptions = {
+//     url: 'https://rxcto.middleware.io/v1/logs',
+//     headers: {
+//         // endpoint: 'https://rxcto.middleware.io/v1/logs',
+//         Authorization: 'mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw'
+//         // 'mw.account_key': 'mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw'
+//     },
+//     // url: '<opentelemetry-collector-url>', // url is optional and can be omitted - default is http://localhost:4318/v1/logs
+//     concurrencyLimit: 1 // an optional limit on pending requests
+// }
+// const logExporter = new OTLPLogExporter(collectorOptions)
+// const loggerProvider = new LoggerProvider()
+//
+// loggerProvider.addLogRecordProcessor(new SimpleLogRecordProcessor(logExporter))
+//
+// const logger = loggerProvider.getLogger('default', '1.0.0')
 
 import {prisma} from './prisma'
 
