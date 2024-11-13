@@ -74,6 +74,10 @@ export async function handler(event: any, context: any) {
                 body: 'this is a error',
                 attributes: {'log.type': 'custom'}
             })
+            span.setStatus({
+                code: SpanStatusCode.ERROR,
+                message: error?.message ?? 'Error on lambda execution'
+            })
             span.recordException(error)
             // span.setStatus({code: SpanStatusCode.ERROR, message: error.message})
             // return {
