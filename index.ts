@@ -34,45 +34,45 @@ import {prisma} from './prisma'
 const tracer = trace.getTracer('sst-v3-prisma', '1.0.0')
 
 export async function handler(event: any, context: any) {
-    const span = tracer.startSpan('lambdaHandler')
+    await tracer.startActiveSpan('lambdaHandler', async (span: any) => {
+        try {
+            // console.log('api', api)
+            span.setAttribute('event', JSON.stringify(event))
 
-    try {
-        // console.log('api', api)
-        span.setAttribute('event', JSON.stringify(event))
+            const users = await prisma.user.findMany({
+                take: 6
+            })
 
-        const users = await prisma.user.findMany({
-            take: 6
-        })
+            // Emit a log
+            logger.emit({
+                severityNumber: SeverityNumber.INFO,
+                severityText: 'info',
+                body: 'this is a log body',
+                attributes: {'log.type': 'custom'}
+            })
 
-        // Emit a log
-        logger.emit({
-            severityNumber: SeverityNumber.INFO,
-            severityText: 'info',
-            body: 'this is a log body',
-            attributes: {'log.type': 'custom'}
-        })
+            console.log('users', users)
 
-        console.log('users', users)
+            span.addEvent('Lambda execution completed')
 
-        span.addEvent('Lambda execution completed')
+            console.error('testing...')
 
-        console.error('testing...')
+            if (Math.random() > 0.5) {
+                throw new Error('testing error')
+            }
 
-        if (Math.random() > 0.5) {
-            throw new Error('testing error')
+            return {
+                statusCode: 200,
+                body: JSON.stringify({users})
+            }
+        } catch (error: any) {
+            span.recordException(error)
+            return {
+                statusCode: 500,
+                body: JSON.stringify({error: error.message})
+            }
+        } finally {
+            // span.end()
         }
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify({users})
-        }
-    } catch (error: any) {
-        span.recordException(error)
-        return {
-            statusCode: 500,
-            body: JSON.stringify({error: error.message})
-        }
-    } finally {
-        span.end()
-    }
+    })
 }
