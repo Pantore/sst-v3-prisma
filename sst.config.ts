@@ -129,7 +129,7 @@ export default $config({
                 // ACCOUNT: aws.getCallerIdentityOutput({}).accountId,
                 // REGION: aws.getRegionOutput().name
                 AWS_LAMBDA_EXEC_WRAPPER: '/opt/otel-handler',
-                NODE_OPTIONS: '--import ./lambda-config.ts',
+                NODE_OPTIONS: '--require ./lambda-config.js',
                 OTEL_SERVICE_NAME: 'sst-v3-prisma',
                 OTEL_EXPORTER_OTLP_ENDPOINT: 'https://rxcto.middleware.io',
                 OTEL_EXPORTER_OTLP_HEADERS: 'mw.account_key=mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw', //added
@@ -168,7 +168,7 @@ export default $config({
             // }
             copyFiles:
                 process.env.IS_LOCAL !== 'true'
-                    ? [{from: 'node_modules/.prisma/client/'}, {from: './lambda-config.ts'}]
+                    ? [{from: 'node_modules/.prisma/client/'}, {from: './lambda-config.js'}]
                     : [],
             layers: [
                 'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-collector-arm64-0_11_0:1',
