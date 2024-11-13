@@ -129,7 +129,7 @@ export default $config({
                 // ACCOUNT: aws.getCallerIdentityOutput({}).accountId,
                 // REGION: aws.getRegionOutput().name
                 AWS_LAMBDA_EXEC_WRAPPER: '/opt/otel-handler',
-                NODE_OPTIONS: '--require ./lambda-config.js',
+                NODE_OPTIONS: '--import ./lambda-config.ts',
                 OTEL_SERVICE_NAME: 'sst-v3-prisma',
                 OTEL_EXPORTER_OTLP_ENDPOINT: 'https://rxcto.middleware.io',
                 OTEL_EXPORTER_OTLP_HEADERS: 'mw.account_key=mlqxrmrfoblijrpfilgnqbotrfdmnckfyqaw', //added

@@ -55,6 +55,7 @@ export async function handler(event: any, context: any) {
             console.log('users', users)
 
             span.addEvent('Lambda execution completed')
+            span.recordException(new Error('Testing error...'))
 
             console.error('testing...')
 
@@ -67,6 +68,12 @@ export async function handler(event: any, context: any) {
             //     body: JSON.stringify({users})
             // }
         } catch (error: any) {
+            logger.emit({
+                severityNumber: SeverityNumber.ERROR,
+                severityText: 'error',
+                body: 'this is a error',
+                attributes: {'log.type': 'custom'}
+            })
             span.recordException(error)
             // return {
             //     statusCode: 500,
