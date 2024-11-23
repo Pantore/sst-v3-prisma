@@ -1,9 +1,10 @@
 generator client {
-  provider      = "prisma-client-js"
+  provider        = "prisma-client-js"
   // For x86
   // binaryTargets = ["native", "rhel-openssl-3.0.x"]
   // For ARM
-  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+  binaryTargets   = ["native", "linux-arm64-openssl-3.0.x"]
+  previewFeatures = ["tracing"]
 }
 
 datasource db {
