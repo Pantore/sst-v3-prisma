@@ -180,7 +180,7 @@ export default $config({
             url: true,
             // For ARM
             // architecture: "arm64",
-            handler: 'helloworld.handler',
+            handler: 'helloworld.lambdaHandler',
             copyFiles:
                 process.env.IS_LOCAL !== 'true'
                     ? [{from: 'node_modules/.prisma/client/'}, {from: './lambda-config.js'}]
