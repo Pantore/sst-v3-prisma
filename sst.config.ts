@@ -192,7 +192,10 @@ export default $config({
             layers: [
                 'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-collector-arm64-0_11_0:1',
                 'arn:aws:lambda:us-east-1:184161586896:layer:opentelemetry-nodejs-0_9_0:4'
-            ]
+            ],
+            nodejs: {
+                install: ['@prisma/instrumentation']
+            }
         })
 
         return {
