@@ -14,10 +14,11 @@ import _ from 'lodash'
 import {trace} from '@opentelemetry/api'
 import {SeverityNumber, logs} from '@opentelemetry/api-logs'
 import {SpanStatusCode} from '@opentelemetry/api'
+import {prisma} from './prisma'
 const tracer = trace.getTracer('app', '1.0.0')
 const logger = logs.getLogger('app')
 export const lambdaHandler = async (event: any, context: any) => {
-    return tracer.startActiveSpan('lambdaHandler', span => {
+    return tracer.startActiveSpan('lambdaHandler', async span => {
         let message = 'hello world'
         message = _.camelCase(message)
         // Basic debug log example
@@ -31,10 +32,16 @@ export const lambdaHandler = async (event: any, context: any) => {
                 throw new Error('testing error')
             }
 
+            const users = await prisma.user.findMany({
+                take: 5
+            })
+            console.log('users', users)
+
             const response = {
                 statusCode: 200,
                 body: JSON.stringify({
-                    message
+                    message,
+                    users
                 })
             }
             span.end()
@@ -53,7 +60,7 @@ export const lambdaHandler = async (event: any, context: any) => {
                 const response = {
                     statusCode: 500,
                     body: JSON.stringify({
-                        error: 'error'
+                        error: error.message ?? 'error'
                     })
                 }
                 span.end()
