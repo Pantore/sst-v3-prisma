@@ -27,6 +27,10 @@ export const lambdaHandler = async (event: any, context: any) => {
             body: message
         })
         try {
+            if (Math.random() > 0.5) {
+                throw new Error('testing error')
+            }
+
             const response = {
                 statusCode: 200,
                 body: JSON.stringify({
