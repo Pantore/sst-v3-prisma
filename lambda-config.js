@@ -8,6 +8,6 @@ global.configureTracerProvider = tracerProvider => {
     const spanProcessor = new SimpleSpanProcessor(new OTLPTraceExporter())
     tracerProvider.addSpanProcessor(spanProcessor)
 }
-registerInstrumentations({
-    instrumentations: [new PrismaInstrumentation(), new MySQLInstrumentation()]
-})
+// registerInstrumentations({
+//     instrumentations: [new PrismaInstrumentation(), new MySQLInstrumentation()]
+// })
