@@ -171,7 +171,7 @@ export default $config({
                     ? [
                           {from: 'node_modules/.prisma/client/'},
                           {from: './lambda-config.js'},
-                          {from: '@prisma/instrumentation'}
+                          {from: 'node_modules/@prisma/instrumentation'}
                       ]
                     : [],
             layers: [
